@@ -1,2 +1,2 @@
-# terraform-vpc-tgw
+# terraform-vpc
 Terraform module to create vpc with tgw
