@@ -3,6 +3,11 @@ output "vpc_id" {
   value       = aws_vpc.vpc.id
 }
 
+output "igw" {
+  description = "IGW ID"
+  value       = aws_internet_gateway.igw
+}
+
 # output "private_subnets" {
 #   description = "List of IDs of private subnets"
 #   value       = aws_subnet.private
@@ -28,7 +33,3 @@ output "vpc_id" {
 #   value       = aws_nat_gateway.nat
 # }
 
-# output "igw" {
-#   description = "IGW ID"
-#   value       = aws_internet_gateway.igw
-# }

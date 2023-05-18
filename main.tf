@@ -16,13 +16,15 @@ resource "aws_vpc" "vpc" {
   }
 }
 
-# # Internet Gateway
-# resource "aws_internet_gateway" "igw" {
-#   vpc_id = aws_vpc.vpc.id
-#   tags = {
-#     Name = "${var.vpc_name}-igw"
-#   }
-# }
+# Internet Gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "${var.vpc_name}-igw"
+  }
+}
+
+
 # # # Public Subnets
 # resource "aws_subnet" "public" {
 #   count = length(local.azs)
