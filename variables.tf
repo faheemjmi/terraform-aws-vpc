@@ -17,50 +17,50 @@ variable "vpc_cidr_block" {
   default     = "10.0.0.0/16"
 }
 
-# variable az_no {
-#     description = "number of availability zones"
-#     type = number
-#     default = 3
-# }
-# variable  "use_single_nat" {
-#      description = "To use single NAT"
-#      default = false
-# }
+variable az_no {
+    description = "number of availability zones"
+    type = number
+    default = 3
+}
+variable  "use_single_nat" {
+     description = "To use single NAT"
+     default = false
+}
 
-# variable  "use_tgw" {
-#     description = "Enable TGW Routing"
-#     default = "no"
-# }
-# variable "it_tgw_id" {
-#     description = "TGW ID"
-#      default = ""
-# }
-# variable "transit_cidr_blocks" {
-#     description = "TGW CIDRs"
-#     default = ""
-# }
-# variable common_tags {
-#     description = "Common Tags"
-#     default = ""
-# }
+variable  "use_tgw" {
+    description = "Enable TGW Routing"
+    default = "no"
+}
+variable "it_tgw_id" {
+    description = "TGW ID"
+     default = ""
+}
+variable "transit_cidr_blocks" {
+    description = "TGW CIDRs"
+    default = ""
+}
+variable common_tags {
+    description = "Common Tags"
+    default = ""
+}
 
-# variable  "public_subnets" {
-#      description = "public subnets"
-#      default = []
-# }
-# variable  "private_subnets" {
-#      description = "privae subnets"
-#      default = []
-# }
-# variable "public_routes" {
-#     description = "publc routes"
-#     default = []
-# }
-# variable "private_routes" {
-#     description = "private routes"
-#     default = []
-# }
-# variable "common_routes" {
-#     description = "common routes"
-#     default = []
-# }
+variable  "public_subnets" {
+     description = "public subnets"
+     default = []
+}
+variable  "private_subnets" {
+     description = "privae subnets"
+     default = []
+}
+variable "public_routes" {
+    description = "publc routes"
+    default = []
+}
+variable "private_routes" {
+    description = "private routes"
+    default = []
+}
+variable "common_routes" {
+    description = "common routes"
+    default = []
+}
