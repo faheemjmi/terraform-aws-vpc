@@ -21,9 +21,12 @@ resource "aws_vpc" "vpc" {
 # Internet Gateway
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
-  tags = {
-    Name = "${var.vpc_name}-igw"
-  }
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.vpc_name}-igw"
+    }
+  )
 }
 
 
@@ -59,9 +62,12 @@ resource "aws_subnet" "private" {
 resource "aws_eip" "nat" {
   count = (var.use_single_nat == false) ? length(aws_subnet.private[*].id) : 1
   vpc = true
-  tags = {
-    Name = "${var.vpc_name}-${element(local.azs, count.index)}"
-  }  
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.vpc_name}-${element(local.azs, count.index)}"
+    }
+  )  
 }
 
 ## NAT Gateways
@@ -70,9 +76,12 @@ resource "aws_nat_gateway" "nat" {
   count         = (var.use_single_nat == false) ? length(aws_subnet.private[*].id) : 1
   allocation_id = aws_eip.nat[count.index].id
   subnet_id     = aws_subnet.public[count.index].id
-  tags = {
-    Name        = "${var.vpc_name}-${element(local.azs, count.index)}"
-  }
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.vpc_name}-${element(local.azs, count.index)}"
+    }
+  )
 }
 
 
@@ -124,9 +133,12 @@ resource "aws_route_table" "public" {
       vpc_peering_connection_id = lookup(route.value, "vpc_peering_connection_id", null)
     }
   }
-    tags = {
-    Name        = "${var.vpc_name}-public"
-  }
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.vpc_name}-public"
+    }
+  )
 }
 
 resource "aws_route_table_association" "public_subnet_association" {
@@ -196,10 +208,13 @@ resource "aws_route_table" "private" {
       nat_gateway_id = (var.use_single_nat == false) ? aws_nat_gateway.nat[count.index].id : aws_nat_gateway.nat[0].id
     }
   }
-
-  tags = {
-    Name        = "${var.vpc_name}-private-${element(local.azs, count.index)}"
-  }  
+ 
+  tags = merge(
+    var.common_tags,
+    {
+      Name = "${var.vpc_name}-private-${element(local.azs, count.index)}"
+    }
+  )
 }
 
 # Associate Route Tables with Subnets
