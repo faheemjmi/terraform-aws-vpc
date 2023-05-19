@@ -41,7 +41,7 @@ variable "transit_cidr_blocks" {
 }
 variable common_tags {
     description = "Common Tags"
-    default = ""
+    default = {}
 }
 
 variable  "public_subnets" {

@@ -10,10 +10,12 @@ locals{
 resource "aws_vpc" "vpc" {
   cidr_block       = var.vpc_cidr_block
   instance_tenancy = "default"
-
-  tags = {
-    Name = var.vpc_name
-  }
+  tags = merge(
+    var.common_tags,
+    {
+     Name = var.vpc_name
+    }
+  )
 }
 
 # Internet Gateway
@@ -31,9 +33,12 @@ resource "aws_subnet" "public" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = element(local.public_subnets_cidr, count.index) 
   availability_zone = element(local.azs, count.index)
-  tags = {
+  tags = merge(
+    var.common_tags,
+    {
     Name = "${var.vpc_name}-public-${element(local.azs, count.index)}"
-  }  
+  }
+  )
 }
 
 ## Private Subnets
@@ -42,9 +47,12 @@ resource "aws_subnet" "private" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = element(local.private_subnets_cidr, count.index) 
   availability_zone = element(local.azs, count.index) 
-  tags = {
+  tags = merge(
+    var.common_tags,
+    {
     Name = "${var.vpc_name}-private-${element(local.azs, count.index)}"
-  }    
+  }
+  )
 }
 
 ## Elastic IPs for NATs
