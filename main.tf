@@ -85,9 +85,16 @@ resource "aws_nat_gateway" "nat" {
 }
 
 
+###### Transit Gateway Attachment ###############
+
+resource "aws_ec2_transit_gateway_vpc_attachment" "tgw_attachment" {
+  count = (var.create_tgw_attachment == true) ? 1 : 0
+  subnet_ids         = aws_subnet.private[*].id
+  transit_gateway_id = var.it_tgw_id
+  vpc_id             = aws_vpc.vpc.id
+}
+
 ########### Public Route Table  ###
-
-
 
 resource "aws_route_table" "public" {
 

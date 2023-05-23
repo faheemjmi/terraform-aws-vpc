@@ -29,6 +29,11 @@ variable  "use_tgw" {
     description = "Enable TGW Routing"
     default = "no"
 }
+variable  "create_tgw_attachment" {
+    description = "Create TGW Attachment"
+    type = bool
+    default = false
+}
 variable "it_tgw_id" {
     description = "TGW ID"
      default = ""
